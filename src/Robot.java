@@ -5,9 +5,9 @@ import java.util.HashMap;
 public class Robot {
 	
 	WordManager wordManager = new WordManager();
-	
+	//starting alphabet for the robot
 	char [] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-	
+	//gets the words that the wordmanager has
 	String [] words = wordManager.getWords();
 	
 	char[] currentAlphabet = alphabet;
@@ -15,9 +15,9 @@ public class Robot {
 	int position =0;
 	
 	int generation =0;
-	
+	//initializes the array that tracks which letters worked
 	int[] hits = new int[26];
-	
+	//keeps hits and alphabet linked together for robots reference
 	HashMap<Character,Integer> common = new HashMap<Character,Integer>();
 	
 	
@@ -26,7 +26,7 @@ public class Robot {
 			common.put(currentAlphabet[i],hits[i]);
 		}
 	}
-	
+	//gets the words from the word manager
 	public String[] GetWord(char[] word) {
 		ArrayList<String> possibleWordsList = new ArrayList<String>();
 		for (int i =0; i<words.length;i++){
@@ -38,7 +38,7 @@ public class Robot {
 		possibleWords = possibleWordsList.toArray(possibleWords);
 		return possibleWords;
 	}
-	
+	// goes through its alphabet and if it runs through alphabet, it changes the guessing order
 	public char guess() {
 		char c = currentAlphabet[this.position];
 		if (this.position >24) {
@@ -50,7 +50,7 @@ public class Robot {
 		}
 		return c;
 	}
-	
+	//lets the robot know if it was correct or not
 	public void correct(char c, boolean[] b) {
 		for (int i =0;i<b.length;i++){
 			if (b[i]) {
@@ -60,7 +60,7 @@ public class Robot {
 			}
 		}
 	}
-	
+	//changes the alphabet order and hence guess order if robot keeps losing
 	public char[] RefineAnswer() {	
 		Arrays.sort(hits);
 		char [] newAlphabet = new char[26];
